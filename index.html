@@ -443,6 +443,30 @@
             <label>NS:</label>
             <input type="text" class="form-control" id="nsField" value="ONLINE">
         </div>
+
+        <!-- NEW: Add the editable metadata fields HERE -->
+        <div class="form-group">
+            <label>CC:</label>
+            <input type="text" class="form-control" id="ccField" value="4098">
+        </div>
+        <div class="form-group">
+            <label>NC (GoldBet):</label>
+            <input type="text" class="form-control" id="ncField" value="GBO Italy S.p.A">
+        </div>
+        <div class="form-group">
+            <label>PV:</label>
+            <input type="text" class="form-control" id="pvField" value="14274">
+        </div>
+        <div class="form-group">
+            <label>TM:</label>
+            <input type="text" class="form-control" id="tmField" value="4">
+        </div>
+        <div class="form-group">
+            <label>NP:</label>
+            <input type="text" class="form-control" id="npField" value="Lignano Sabbiadoro, Via Arcobalen">
+        </div>
+        <!-- END NEW FIELDS -->
+
         <div class="form-group">
             <label>Timestamp (OE):</label>
             <input type="text" class="form-control" id="timestampField">
@@ -513,7 +537,7 @@
         goldbetTitle: "https://i.ibb.co/spL1p47B/6db9b7f1-1ac8-4b30-9925-07b9a890ba72.jpg",
         goldbetFooter: "https://i.ibb.co/LDQfJCHH/2fe1a920-87e5-410f-b548-33d86ac92231.jpg", // RENAMED from 'footer'
         intralotFooter: "https://i.ibb.co/T5SVfZc/IMG-3075.jpg", // NEW
-        intralotBottom: "https://i.ibb.co/LXm9qbtZ/IMG-3077.jpg",
+        intralotBottom: "https://i.ibb.co/Lhc8DT2X/IMG-3077-2.jpg",
         qrCode: "https://i.ibb.co/kgQjhSxd/qr-code.png",
         get barcode() {
             const canvas = document.createElement("canvas");
@@ -615,6 +639,11 @@
                 date: document.getElementById('matchDatePicker').value,
                 ib: document.getElementById('ibField').value.trim(),
                 ns: document.getElementById('nsField').value.trim(),
+                cc: document.getElementById('ccField').value.trim(),
+                nc: document.getElementById('ncField').value.trim(),
+                pv: document.getElementById('pvField').value.trim(),
+                tm: document.getElementById('tmField').value.trim(),
+                np: document.getElementById('npField').value.trim(),
                 quotaType: document.getElementById('quotaTypeField').value.trim(),
                 company: selectedCompany, // ADD THIS
                 betType: document.getElementById('betTypeField').value.trim(),
@@ -876,7 +905,8 @@
 
         // Clear all input fields except defaults
         const preserveFields = ['quotaTypeField', 'betTypeField', 'betChosenField',
-        'tgField', 'ibField', 'nsField', 'sportField'];
+        'tgField', 'ibField', 'nsField', 'sportField',
+        'ccField', 'ncField', 'pvField', 'tmField', 'npField'];
 
         document.querySelectorAll('input[type="text"], input[type="number"]').forEach(input => {
             if (!preserveFields.includes(input.id)) {
@@ -956,13 +986,13 @@
                 <div class="ticket-details">
                     <div>CB-<strong>${ticketData.ticketCode}</strong></div>
                     <div class="ticket-meta-line">
-                        <span>CC-<strong>4098</strong></span>
-                        <span>NC-<strong>${companyName}</strong></span>
-                        <span>PV-<strong>14274</strong></span>
-                        <span>TM-<strong>4</strong></span>
+                        <span>CC-<strong>${ticketData.cc}</strong></span>
+                        <span>NC-<strong>${ticketData.company === 'INTRALOT' ? 'INTRALOT S.A.' : ticketData.nc}</strong></span>
+                        <span>PV-<strong>${ticketData.pv}</strong></span>
+                        <span>TM-<strong>${ticketData.tm}</strong></span>
                     </div>
                     <div class="ticket-meta-line">
-                        <span>NP-<strong>Lignano Sabbiadoro, Via Arcobalen</strong></span>
+                        <span>NP-<strong>${ticketData.np}</strong></span>
                         <span>TG-<strong>${ticketData.tg}</strong></span>
                     </div>
                     <div class="ticket-meta-line">

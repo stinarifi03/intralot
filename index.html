@@ -558,7 +558,10 @@
 
         // Set current date in date field
         const today = new Date();
-        document.getElementById('dateField').value = today.toISOString().split('T')[0];
+        const day = String(today.getDate()).padStart(2, '0');
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const year = today.getFullYear();
+        document.getElementById('dateField').value = `${day}-${month}-${year}`;
         document.getElementById('timeField').value = today.toTimeString().substring(0, 5);
 
         // Button event listeners
@@ -915,6 +918,11 @@
         // Reset dynamic values
         document.getElementById('ticketCodeField').value = Math.random().toString(36).substring(2, 10).toUpperCase();
         document.getElementById('timestampField').value = new Date().toLocaleTimeString();
+        const today = new Date();
+        const day = String(today.getDate()).padStart(2, '0');
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const year = today.getFullYear();
+        document.getElementById('dateField').value = `${day}-${month}-${year}`;
         document.getElementById('matchDatePicker').valueAsDate = new Date();
     }
 

@@ -1022,7 +1022,7 @@
                             <div class="ticket-match">
                                 <div class="ticket-amount">
                                     <div>(${match.matchId}) ${match.code} ${match.sport}${' '.repeat(15 - match.sport.length)}</div>
-                                    <div>${match.date} ${match.time}</div>
+                                    <div>${formatMatchDate(match.date)} ${match.time}</div>
                                 </div>
                                 <div class="ticket-match-teams"><strong>${match.team1} - ${match.team2}</strong></div>
                                 <div class="bet-odds-row">
@@ -1121,6 +1121,18 @@
         const month = months[date.getMonth()];
         const year = date.getFullYear();
         return `${day}.${month}.${year}`;
+    }
+    function formatMatchDate(dateString) {
+        // Convert "DD-MM-YYYY" to "DD-MM-YY"
+        // Example: "09-12-2025" → "09-12-25"
+        const parts = dateString.split('-');
+        if (parts.length === 3) {
+            const day = parts[0];
+            const month = parts[1];
+            const year = parts[2].slice(-2); // Get last 2 digits
+            return `${day}-${month}-${year}`;
+        }
+        return dateString; // If format is wrong, return as is
     }
 
     // Make removeMatch available globally for the inline onclick

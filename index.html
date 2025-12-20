@@ -404,6 +404,10 @@
                 <option value="GOLDBET">GOLDBET</option>
                 <option value="INTRALOT">INTRALOT</option>
             </select>
+            <div class="form-check mt-2">
+                <input type="checkbox" class="form-check-input" id="showBottomImageField" checked>
+                <label class="form-check-label" for="showBottomImageField" style="font-size: 12px;">Show Intralot bottom image</label>
+            </div>
         </div>
         <div class="form-group">
             <label>League Name:</label>
@@ -602,6 +606,8 @@
             const bonusAmount = parseFloat(document.getElementById('bonusField').value) || 0;
             const selectedCompany = document.getElementById('companyField').value.trim(); // GET COMPANY
 
+            const showBottomImage = document.getElementById('showBottomImageField').checked;
+
             const ticketData = {
                 ticketCode: document.getElementById('ticketCodeField').value.trim(),
                 timestamp: document.getElementById('timestampField').value.trim(),
@@ -616,6 +622,7 @@
                 bonusAmount: bonusAmount,
                 matches: matches,
                 betAmount: betAmount,
+                showBottomImage: showBottomImage,
                 imageUrls: imageUrls
             };
 
@@ -1023,7 +1030,7 @@
                     </div>
                 </div>
                 <img src="${ticketData.imageUrls.barcode}" alt="Barcode" class="ticket-barcode">
-                ${ticketData.company === 'INTRALOT' ? `
+                ${ticketData.company === 'INTRALOT' && ticketData.showBottomImage ? `
                 <img src="${ticketData.imageUrls.intralotBottom}" alt="Intralot Bottom" class="ticket-barcode">
                 ` : ''}
             </div>
@@ -1074,7 +1081,7 @@
         const months = ['gen', 'feb', 'mar', 'apr', 'mag', 'giu',
                         'lug', 'ago', 'set', 'ott', 'nov', 'dic'];
         const date = new Date(dateString);
-        const day = date.getDate();
+        const day = String(date.getDate()).padStart(2, '0'); // This adds leading zero
         const month = months[date.getMonth()];
         const year = date.getFullYear();
         return `${day}.${month}.${year}`;

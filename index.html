@@ -509,6 +509,7 @@
         goldbetTitle: "https://i.ibb.co/spL1p47B/6db9b7f1-1ac8-4b30-9925-07b9a890ba72.jpg",
         goldbetFooter: "https://i.ibb.co/LDQfJCHH/2fe1a920-87e5-410f-b548-33d86ac92231.jpg", // RENAMED from 'footer'
         intralotFooter: "https://i.ibb.co/T5SVfZc/IMG-3075.jpg", // NEW
+        intralotBottom: "https://i.ibb.co/LXm9qbtZ/IMG-3077.jpg",
         qrCode: "https://i.ibb.co/kgQjhSxd/qr-code.png",
         get barcode() {
             const canvas = document.createElement("canvas");
@@ -1022,6 +1023,9 @@
                     </div>
                 </div>
                 <img src="${ticketData.imageUrls.barcode}" alt="Barcode" class="ticket-barcode">
+                ${ticketData.company === 'INTRALOT' ? `
+                <img src="${ticketData.imageUrls.intralotBottom}" alt="Intralot Bottom" class="ticket-barcode">
+                ` : ''}
             </div>
         `;
     }

@@ -466,6 +466,10 @@
             <input type="text" class="form-control" id="npField" value="Lignano Sabbiadoro, Via Arcobalen">
         </div>
         <div class="form-group">
+            <label>CG:</label>
+            <input type="text" class="form-control" id="cgField" value="2005376">
+        </div>
+        <div class="form-group">
             <label>Timestamp (OE):</label>
             <input type="text" class="form-control" id="timestampField">
         </div>
@@ -645,6 +649,7 @@
                 pv: document.getElementById('pvField').value.trim(),
                 tm: document.getElementById('tmField').value.trim(),
                 np: document.getElementById('npField').value.trim(),
+                cg: document.getElementById('cgField').value.trim(),
                 quotaType: document.getElementById('quotaTypeField').value.trim(),
                 company: selectedCompany, // ADD THIS
                 betType: document.getElementById('betTypeField').value.trim(),
@@ -907,7 +912,7 @@
         // Clear all input fields except defaults
         const preserveFields = ['quotaTypeField', 'betTypeField', 'betChosenField',
         'tgField', 'ibField', 'nsField', 'sportField',
-        'ccField', 'ncField', 'pvField', 'tmField', 'npField'];
+        'ccField', 'ncField', 'pvField', 'tmField', 'npField','cgField'];
 
         document.querySelectorAll('input[type="text"], input[type="number"]').forEach(input => {
             if (!preserveFields.includes(input.id)) {
@@ -1004,7 +1009,7 @@
                     <div class="ticket-meta-line">
                         <span>GE-<strong>${formatDate(ticketData.date)}</strong></span>
                         <span>OE-<strong>${ticketData.timestamp}</strong></span>
-                        <span>CG-<strong>2005376</strong></span>
+                        <span>CG-<strong>${ticketData.cg}</strong></span>
                     </div>
                     <div class="ticket-meta-line">
                         <span>IB-<strong>${ticketData.ib}</strong></span>

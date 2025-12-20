@@ -450,7 +450,7 @@
             <input type="text" class="form-control" id="ccField" value="4098">
         </div>
         <div class="form-group">
-            <label>NC (GoldBet):</label>
+            <label>NC:</label>
             <input type="text" class="form-control" id="ncField" value="GBO Italy S.p.A">
         </div>
         <div class="form-group">
@@ -465,8 +465,6 @@
             <label>NP:</label>
             <input type="text" class="form-control" id="npField" value="Lignano Sabbiadoro, Via Arcobalen">
         </div>
-        <!-- END NEW FIELDS -->
-
         <div class="form-group">
             <label>Timestamp (OE):</label>
             <input type="text" class="form-control" id="timestampField">
@@ -987,7 +985,7 @@
                     <div>CB-<strong>${ticketData.ticketCode}</strong></div>
                     <div class="ticket-meta-line">
                         <span>CC-<strong>${ticketData.cc}</strong></span>
-                        <span>NC-<strong>${ticketData.company === 'INTRALOT' ? 'INTRALOT S.A.' : ticketData.nc}</strong></span>
+                        <span>NC-<strong>${ticketData.nc}</strong></span>
                         <span>PV-<strong>${ticketData.pv}</strong></span>
                         <span>TM-<strong>${ticketData.tm}</strong></span>
                     </div>

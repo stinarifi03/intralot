@@ -504,12 +504,12 @@
 
     // Image URLs - MODIFIED to include Intralot
     const imageUrls = {
-        goldbetLogo: "https://i.ibb.co/C3RgRj17/6cfbcfb3-e7ab-43af-9cff-93041a9c838e.jpg", // Renamed from 'logo' for clarity
-        intralotLogo: "https://i.ibb.co/6cB52fXP/Image.jpg", // NEW
-        goldbetTitle: "https://i.ibb.co/spL1p47B/6db9b7f1-1ac8-4b30-9925-07b9a890ba72.jpg", // NEW - extracted from displayTicket
-        // Keep existing URLs exactly the same
+        goldbetLogo: "https://i.ibb.co/C3RgRj17/6cfbcfb3-e7ab-43af-9cff-93041a9c838e.jpg",
+        intralotLogo: "https://i.ibb.co/6cB52fXP/Image.jpg",
+        goldbetTitle: "https://i.ibb.co/spL1p47B/6db9b7f1-1ac8-4b30-9925-07b9a890ba72.jpg",
+        goldbetFooter: "https://i.ibb.co/LDQfJCHH/2fe1a920-87e5-410f-b548-33d86ac92231.jpg", // RENAMED from 'footer'
+        intralotFooter: "https://i.ibb.co/T5SVfZc/IMG-3075.jpg", // NEW
         qrCode: "https://i.ibb.co/kgQjhSxd/qr-code.png",
-        footer: "https://i.ibb.co/LDQfJCHH/2fe1a920-87e5-410f-b548-33d86ac92231.jpg",
         get barcode() {
             const canvas = document.createElement("canvas");
             JsBarcode(canvas, document.getElementById('ticketCodeField').value || "TICKET", {
@@ -901,10 +901,10 @@
         if (ticketData.company === 'INTRALOT') {
             // INTRALOT: Single wider logo
             headerHTML = `
-                <div class="ticket-header" style="justify-content: space-between; align-items: center; gap: 1px;">
+                <div class="ticket-header" style="justify-content: space-between; align-items: center;">
                     <img src="${ticketData.imageUrls.intralotLogo}"
                          alt="INTRALOT"
-                         style="height: 100px; width: 220px; object-fit: contain; flex-shrink: 0;">
+                         style="height: 70px; width: 150px; object-fit: contain; margin-right: 5px;">
                     <div style="display: flex; flex-direction: column; align-items: flex-end;">
                         <div style="font-size: 5.7px; font-weight: bold; margin-bottom: 2px;">BONUS BENVENUTO ONLI</div>
                         <img src="${ticketData.imageUrls.qrCode}" alt="QR Code" style="height: 70px;">
@@ -934,6 +934,11 @@
         // DETERMINE DISCLAIMER URL
         const disclaimerUrl = ticketData.company === 'INTRALOT' ? 'intralot.com' : 'goldbet.it';
 
+        // DETERMINE FOOTER IMAGE
+        const footerImage = ticketData.company === 'INTRALOT'
+            ? ticketData.imageUrls.intralotFooter
+            : ticketData.imageUrls.goldbetFooter;
+
         container.innerHTML = `
             <div class="ticket">
                 ${headerHTML}
@@ -944,7 +949,7 @@
                     <div>CB-<strong>${ticketData.ticketCode}</strong></div>
                     <div class="ticket-meta-line">
                         <span>CC-<strong>4098</strong></span>
-                        <span>NC-<strong>${companyName}</strong></span> <!-- CHANGED -->
+                        <span>NC-<strong>${companyName}</strong></span>
                         <span>PV-<strong>14274</strong></span>
                         <span>TM-<strong>4</strong></span>
                     </div>
@@ -1007,13 +1012,13 @@
                     <div class="ticket-winnings-pattern"></div>
                 </div>
                 <div class="ticket-disclaimer">
-                    Consulta le probabilità di vincita e i regolamenti di gioco su ${disclaimerUrl}.<br> <!-- CHANGED -->
+                    Consulta le probabilità di vincita e i regolamenti di gioco su ${disclaimerUrl}.<br>
                     Il gioco è vietato ai minori di 18 anni e può causare dipendenza patologica.
                 </div>
 
                 <div class="ticket-footer">
                     <div class="footer-disclaimer-container">
-                        <img src="${ticketData.imageUrls.footer}" alt="Footer Logo" class="footer-single-image">
+                        <img src="${footerImage}" alt="Footer Logo" class="footer-single-image">
                     </div>
                 </div>
                 <img src="${ticketData.imageUrls.barcode}" alt="Barcode" class="ticket-barcode">

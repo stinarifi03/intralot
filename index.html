@@ -403,6 +403,8 @@
             <select class="form-control" id="companyField">
                 <option value="GOLDBET">GOLDBET</option>
                 <option value="INTRALOT">INTRALOT</option>
+                <option value="BETTER">BETTER</option>
+                <option value="PLANETWIN">PLANETWIN</option>
             </select>
             <div class="form-check mt-2">
                 <input type="checkbox" class="form-check-input" id="showBottomImageField" checked>
@@ -540,6 +542,8 @@
         goldbetFooter: "https://i.ibb.co/LDQfJCHH/2fe1a920-87e5-410f-b548-33d86ac92231.jpg", // RENAMED from 'footer'
         intralotFooter: "https://i.ibb.co/T5SVfZc/IMG-3075.jpg", // NEW
         intralotBottom: "https://i.ibb.co/Lhc8DT2X/IMG-3077-2.jpg",
+        betterLogo: "https://i.ibb.co/fwpJX0X/better.jpg",
+        planetwinLogo: "https://i.ibb.co/99mYxp1g/planetwin.jpg",
         qrCode: "https://i.ibb.co/kgQjhSxd/qr-code.png",
         get barcode() {
             const canvas = document.createElement("canvas");
@@ -948,11 +952,34 @@
         // DETERMINE HEADER BASED ON COMPANY
         let headerHTML = '';
         if (ticketData.company === 'INTRALOT') {
-            // INTRALOT: Single wider logo
             headerHTML = `
                 <div class="ticket-header" style="justify-content: space-between; align-items: center; gap: 1px;">
                     <img src="${ticketData.imageUrls.intralotLogo}"
                          alt="INTRALOT"
+                         style="height: 100px; width: 210px; object-fit: contain; flex-shrink: 0;">
+                    <div style="display: flex; flex-direction: column; align-items: flex-end;">
+                        <div style="font-size: 5.7px; font-weight: bold; margin-bottom: 2px;">BONUS BENVENUTO ONLI</div>
+                        <img src="${ticketData.imageUrls.qrCode}" alt="QR Code" style="height: 70px;">
+                    </div>
+                </div>
+            `;
+        } else if (ticketData.company === 'BETTER') {
+            headerHTML = `
+                <div class="ticket-header" style="justify-content: space-between; align-items: center; gap: 1px;">
+                    <img src="${ticketData.imageUrls.betterLogo}"
+                         alt="BETTER"
+                         style="height: 100px; width: 210px; object-fit: contain; flex-shrink: 0;">
+                    <div style="display: flex; flex-direction: column; align-items: flex-end;">
+                        <div style="font-size: 5.7px; font-weight: bold; margin-bottom: 2px;">BONUS BENVENUTO ONLI</div>
+                        <img src="${ticketData.imageUrls.qrCode}" alt="QR Code" style="height: 70px;">
+                    </div>
+                </div>
+            `;
+        } else if (ticketData.company === 'PLANETWIN') {
+            headerHTML = `
+                <div class="ticket-header" style="justify-content: space-between; align-items: center; gap: 1px;">
+                    <img src="${ticketData.imageUrls.planetwinLogo}"
+                         alt="PLANETWIN"
                          style="height: 100px; width: 210px; object-fit: contain; flex-shrink: 0;">
                     <div style="display: flex; flex-direction: column; align-items: flex-end;">
                         <div style="font-size: 5.7px; font-weight: bold; margin-bottom: 2px;">BONUS BENVENUTO ONLI</div>
@@ -978,14 +1005,21 @@
         }
 
         // DETERMINE COMPANY NAME FOR NC FIELD
-        const companyName = ticketData.company === 'INTRALOT' ? 'INTRALOT S.A.' : 'GBO Italy S.p.A';
+        const companyName = ticketData.company === 'INTRALOT' ? 'INTRALOT S.A.'
+            : ticketData.company === 'BETTER' ? 'Better S.p.A'
+            : ticketData.company === 'PLANETWIN' ? 'PlanetWin365 S.p.A'
+            : 'GBO Italy S.p.A';
 
         // DETERMINE DISCLAIMER URL
-        const disclaimerUrl = ticketData.company === 'INTRALOT' ? 'intralot.com' : 'goldbet.it';
+        const disclaimerUrl = ticketData.company === 'INTRALOT' ? 'intralot.com'
+            : ticketData.company === 'BETTER' ? 'better.it'
+            : ticketData.company === 'PLANETWIN' ? 'planetwin365.it'
+            : 'goldbet.it';
 
         // DETERMINE FOOTER IMAGE
-        const footerImage = ticketData.company === 'INTRALOT'
-            ? ticketData.imageUrls.intralotFooter
+        const footerImage = ticketData.company === 'INTRALOT' ? ticketData.imageUrls.intralotFooter
+            : ticketData.company === 'BETTER' ? ticketData.imageUrls.betterLogo
+            : ticketData.company === 'PLANETWIN' ? ticketData.imageUrls.planetwinLogo
             : ticketData.imageUrls.goldbetFooter;
 
         container.innerHTML = `
@@ -1021,9 +1055,8 @@
 
                 <div class="ticket-section">
                     <div class="ticket-section-header" style="line-height:1">${ticketData.quotaType.toUpperCase()}</div>
-                    ${Object.entries(matchesByLeague).map(([leagueName, leagueMatches]) => `
-                        <div class="league-header">${leagueName}</div>
-                        ${leagueMatches.map(match => `
+                    ${ticketData.company === 'BETTER'
+                        ? ticketData.matches.map(match => `
                             <div class="ticket-match">
                                 <div class="ticket-amount">
                                     <div>(${match.matchId}) ${match.code} ${match.sport}${' '.repeat(15 - match.sport.length)}</div>
@@ -1036,8 +1069,25 @@
                                     <div class="odds-value"><strong>${formatNumber(match.odds)}</strong></div>
                                 </div>
                             </div>
-                        `).join('')}
-                    `).join('')}
+                        `).join('')
+                        : Object.entries(matchesByLeague).map(([leagueName, leagueMatches]) => `
+                            <div class="league-header">${leagueName}</div>
+                            ${leagueMatches.map(match => `
+                                <div class="ticket-match">
+                                    <div class="ticket-amount">
+                                        <div>(${match.matchId}) ${match.code} ${match.sport}${' '.repeat(15 - match.sport.length)}</div>
+                                        <div>${formatMatchDate(match.date)} ${match.time}</div>
+                                    </div>
+                                    <div class="ticket-match-teams"><strong>${match.team1} - ${match.team2}</strong></div>
+                                    <div class="bet-odds-row">
+                                        <div class="bet-type">${match.betType}</div>
+                                        <div class="bet-chosen"><strong>${match.betChosen}  </strong></div>
+                                        <div class="odds-value"><strong>${formatNumber(match.odds)}</strong></div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        `).join('')
+                    }
                 </div>
 
                 <div class="ticket-amount large-amount">
@@ -1072,7 +1122,7 @@
                 </div>
                 <img src="${ticketData.imageUrls.barcode}" alt="Barcode" class="ticket-barcode">
                 ${ticketData.company === 'INTRALOT' && ticketData.showBottomImage ? `
-                <img src="${ticketData.imageUrls.intralotBottom}" alt="Intralot Bottom" class="ticket-barcode">
+                <img src="${ticketData.imageUrls.intralotBottom}" alt="Intralot Bottom" class="ticket-barcode" style="width: 279px; height: 80px;">
                 ` : ''}
             </div>
         `;

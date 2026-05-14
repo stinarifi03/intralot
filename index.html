@@ -1017,9 +1017,8 @@
             : 'goldbet.it';
 
         // DETERMINE FOOTER IMAGE
-        const footerImage = ticketData.company === 'INTRALOT' ? ticketData.imageUrls.intralotFooter
-            : ticketData.company === 'BETTER' ? ticketData.imageUrls.betterLogo
-            : ticketData.company === 'PLANETWIN' ? ticketData.imageUrls.planetwinLogo
+        const footerImage = ticketData.company === 'INTRALOT'
+            ? ticketData.imageUrls.intralotFooter
             : ticketData.imageUrls.goldbetFooter;
 
         container.innerHTML = `

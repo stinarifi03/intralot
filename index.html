@@ -408,7 +408,7 @@
             </select>
             <div class="form-check mt-2">
                 <input type="checkbox" class="form-check-input" id="showBottomImageField" checked>
-                <label class="form-check-label" for="showBottomImageField" style="font-size: 12px;">Show Intralot bottom image</label>
+                <label class="form-check-label" for="showBottomImageField" style="font-size: 12px;">Show bottom image</label>
             </div>
         </div>
         <div class="form-group">
@@ -1120,7 +1120,7 @@
                     </div>
                 </div>
                 <img src="${ticketData.imageUrls.barcode}" alt="Barcode" class="ticket-barcode">
-                ${ticketData.company === 'INTRALOT' && ticketData.showBottomImage ? `
+                ${ticketData.showBottomImage ? `
                 <img src="${ticketData.imageUrls.intralotBottom}" alt="Intralot Bottom" class="ticket-barcode" style="width: 279px; height: 80px;">
                 ` : ''}
             </div>

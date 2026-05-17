@@ -231,7 +231,7 @@
             width: 53mm !important;
             max-width: 53mm !important;
             height: auto !important;
-            margin: 5px auto !important;
+            margin: 5px auto 0 !important;
             display: block;
             object-fit: contain;
         }
@@ -799,9 +799,12 @@
                             .ticket-match {
                                 margin: 2px 0 !important;
                                 line-height: 1.1 !important;
-                                font-weight: bold !important;
                             }
-                            .ticket-match-teams { font-weight: bold !important; }
+                            .ticket-match > .ticket-amount,
+                            .ticket-match > .ticket-amount div {
+                                font-weight: 500 !important;
+                            }
+                            .ticket-match-teams { font-weight: 500 !important; }
                             .ticket-amount {
                                 display: flex;
                                 justify-content: space-between;

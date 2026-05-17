@@ -1163,7 +1163,7 @@
     }
 
     function formatNumber(number) {
-        return (Math.round(number * 100) / 100).toFixed(2).replace('.', ',');
+        return (Math.floor(number * 100) / 100).toFixed(2).replace('.', ',');
     }
 
     function formatDate(dateString) {

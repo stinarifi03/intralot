@@ -1077,11 +1077,11 @@
                                         <div>(${match.matchId}) ${match.code} ${match.sport}${' '.repeat(15 - match.sport.length)}</div>
                                         <div>${formatMatchDate(match.date)} ${match.time}</div>
                                     </div>
-                                    <div class="ticket-match-teams"><strong>${match.team1} - ${match.team2}</strong></div>
+                                    <div class="ticket-match-teams">${match.team1} - ${match.team2}</div>
                                     <div class="bet-odds-row">
                                         <div class="bet-type">${match.betType}</div>
-                                        <div class="bet-chosen"><strong>${match.betChosen}  </strong></div>
-                                        <div class="odds-value"><strong>${formatNumber(match.odds)}</strong></div>
+                                        <div class="bet-chosen">${match.betChosen}  </div>
+                                        <div class="odds-value">${formatNumber(match.odds)}</div>
                                     </div>
                                 </div>
                             `).join('')}
@@ -1121,7 +1121,7 @@
                 </div>
                 <img src="${ticketData.imageUrls.barcode}" alt="Barcode" class="ticket-barcode">
                 ${ticketData.showBottomImage ? `
-                <img src="${ticketData.imageUrls.intralotBottom}" alt="Intralot Bottom" class="ticket-barcode" style="width: 279px; height: 80px;">
+                <img src="${ticketData.imageUrls.intralotBottom}" alt="Intralot Bottom" class="ticket-barcode" style="width: 309px; height: 80px;">
                 ` : ''}
             </div>
         `;
@@ -1164,7 +1164,7 @@
     }
 
     function formatNumber(number) {
-        return number.toFixed(2).replace('.', ',');
+        return (Math.round(number * 100) / 100).toFixed(2).replace('.', ',');
     }
 
     function formatDate(dateString) {

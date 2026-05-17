@@ -50,6 +50,7 @@
         .ticket-match > .ticket-amount div {
             font-family: Arial, sans-serif !important;
             font-size: 9px !important;
+            font-weight: 500 !important;
         }
 
         .ticket-meta-line {
@@ -227,8 +228,9 @@
         }
 
         .footer-single-image {
-            height: 70px !important;
-            max-width: 210px !important;
+            width: 53mm !important;
+            max-width: 53mm !important;
+            height: auto !important;
             margin: 5px auto !important;
             display: block;
             object-fit: contain;
@@ -1016,10 +1018,7 @@
             : ticketData.company === 'PLANETWIN' ? 'planetwin365.it'
             : 'goldbet.it';
 
-        // DETERMINE FOOTER IMAGE
-        const footerImage = ticketData.company === 'INTRALOT'
-            ? ticketData.imageUrls.intralotFooter
-            : ticketData.imageUrls.goldbetFooter;
+        const footerImage = ticketData.imageUrls.intralotFooter;
 
         container.innerHTML = `
             <div class="ticket">
